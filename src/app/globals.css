@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  [data-nextjs-scroll-focus-boundary] {
+    /* 
+        Next.js 13 added a div with this attribute inside the "children" element which the RootLayout accepts as a prop.
+        This rule prevents this extra div from affecting the layout.
+        */
+    display: contents;
+  }
+}

@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js 13 Template
+
+This is a template for [Next.js 13](https://nextjs.org/blog/next-13/) projects inspired by the [T3 Stack](https://github.com/t3-oss/create-t3-app).  
+It includes:
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+- [NextAuth.js](https://next-auth.js.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
 ## Getting Started
 
-First, run the development server:
+### Database
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+This template uses [Prisma](https://www.prisma.io/) to provide type-safe access to your database.  
+Make sure to run `npx prisma db push` from the root directory of your app. This command will sync your Prisma [schema](/prisma/schema.prisma) with your database and will generate the TypeScript types for the Prisma Client based on your schema.  
+Once you have synced your schema, you can run `npx prisma studio` to open the Prisma Studio and explore your database.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Authentication
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This template includes NextAuth.js, and gets you started with the DiscordProvider. This is one of the simplest providers that NextAuth.js offers, but it still requires a bit of initial setup on your part.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Of course, if you prefer to use a different auth provider, you can also use one of the many [providers](https://next-auth.js.org/providers/) that NextAuth.js offers.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. You will need a Discord account, so register one if you haven’t already.
+2. Navigate to https://discord.com/developers/applications and click “New Application” in the top right corner. Give your application a name and agree to the Terms of Service.
+3. Once your application has been created, navigate to “Settings → OAuth2 → General”.
+4. Copy the “Client ID” and add it to your .env as DISCORD_CLIENT_ID.
+5. Click “Reset Secret”, copy the new secret, and add it to your .env as DISCORD_CLIENT_SECRET.
+6. Click “Add Redirect” and type in http://localhost:3000/api/auth/callback/discord.
 
-## Learn More
+   - For production deployment, follow the previous steps to create another Discord Application, but this time replace http://localhost:3000 with the URL that you are deploying to.
 
-To learn more about Next.js, take a look at the following resources:
+7. Save Changes.
+8. Set the NEXTAUTH_SECRET in .env. In development any string will work, for production see the note in .env on generating a secure secret.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You should now be able to log in.
